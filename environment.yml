@@ -1,0 +1,25 @@
+name: intrinsic-probing
+channels:
+  - plotly
+  - conda-forge
+dependencies:
+  - python=3.7
+  - numpy
+  - flake8
+  - mypy
+  - scipy
+  - pytest
+  - tqdm
+  - matplotlib
+  - pandas
+  - plotly=4.5.4
+  - plotly-orca
+  - conllu
+  - overrides
+  - pyyaml
+  - scikit-learn
+  - pip:
+    - uncertainties
+    - transformers
+    - termcolor
+    - pycountry

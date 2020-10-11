@@ -1,6 +1,6 @@
 # Intrinsic Probing through Dimension Selection
 
-This is the repository for "Intrinsic Probing through Dimension Selection".
+This is the repository for the EMNLP 2020 paper "Intrinsic Probing through Dimension Selection".
 
 ## Setup
 
@@ -40,3 +40,19 @@ For a list of options you can use, run `python run_ud_treebanks.py -h`.
 For example, to replicate our MAP experiments for Portuguese fastText, you would run `python run_ud_treebanks.py por fasttext --max-iter 50 --trainer map`.
 
 You can also run `./scripts/run_ud_all_experiments.sh` to reproduce experimental results.
+
+## Citation
+
+```
+@inproceedings{hennigen+al.emnlp20,
+  title = {Intrinsic Probing through Dimension Selection},
+  author = {Torroba Hennigen, Lucas and 
+  Williams, Adina and 
+  Cotterell, Ryan},
+  booktitle = {Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing},
+  month = {November},
+  year = {2020},
+  address = {Online},
+  publisher = {Association for Computational Linguistics}
+}
+```

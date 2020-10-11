@@ -20,17 +20,31 @@ plotly.io._orca.request_image_with_retrying = wrapped
 
 
 # Setup arguments
-parser = ArgumentParser()
-parser.add_argument("language")
-parser.add_argument("embedding", choices=["fasttext", "bert"])
-parser.add_argument("--attribute", type=str)
-parser.add_argument("--trainer", type=str, choices=["mle", "map"], default="map")
-parser.add_argument("--max-iter", type=int, default=10)
-parser.add_argument("--log-wandb", default=False, action="store_true")
-parser.add_argument("--show-charts", default=False, action="store_true")
-parser.add_argument("--use-gpu", default=False, action="store_true")
-parser.add_argument("--selection-criterion", choices=["accuracy", "mi", "log_likelihood"], default="log_likelihood")
-parser.add_argument("--tag", type=str)
+parser = ArgumentParser(description="This script conducts probing through dimension selection. You will need to supply \
+                        a language, an embedding (fastText or BERT), and (optionally) the attribute you want to probe. \
+                        Remember that the \
+                        treebanks need to be preprocessed beforehand (see the `preprocess_treebank.py` script for \
+                        that).")
+parser.add_argument("language", help="Three-digit language code (e.g., eng for English). Follows UniMorph convention.")
+parser.add_argument("embedding", choices=["fasttext", "bert"], help="Embedding that should be probed. Remember to \
+                    preprocess the embeddings for this particular language--embedding pair beforehand.")
+parser.add_argument("--attribute", type=str, help="The attribute that needs to be probed. This is one of the UniMorph \
+                    dimensions. If not specified, all valid attributes will be probed.")
+parser.add_argument("--trainer", type=str, choices=["mle", "map"], default="map", help="Method used to train the \
+                    Gaussian probe. MLE is maximum likelihood estimation, which uses the empirical mean and \
+                    covariance. MAP is the method used in the paper.")
+parser.add_argument("--max-iter", type=int, default=50, help="Number of iterations to run the dimension selection \
+                    procedure for.")
+parser.add_argument("--log-wandb", default=False, action="store_true", help="If enabled, logs this run on wandb. Note \
+                    that this requires setting up wandb beforehand.")
+parser.add_argument("--show-charts", default=False, action="store_true", help="If enabled, this opens up the charts \
+                    with the results after running.")
+parser.add_argument("--use-gpu", default=False, action="store_true", help="If enabled, uses a GPU to speed up the \
+                    process. Note that the speedup isn't as great as you would expect, so you can feasible run this \
+                    on CPU.")
+parser.add_argument("--selection-criterion", choices=["accuracy", "mi", "log_likelihood"], default="log_likelihood",
+                    help="Selection criterion used when probing through dimension selection.")
+parser.add_argument("--tag", type=str, help="Tag to use when logging this run to wandb.")
 parser.add_argument(
     "--diagonalize", default=False, action="store_true", help="If set diagonalizes covariances, aka. uses a naive model \
         that assumes conditional independence of embedding dimensions given the class.")

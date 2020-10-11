@@ -17,15 +17,23 @@ import config
 
 _DEFAULT_TREEBANKS_ROOT = path.join(config.DATA_ROOT, "ud/ud-treebanks-v2.1")
 
-parser = ArgumentParser()
-parser.add_argument("treebank", type=str)  # e.g. "UD_Portuguese-Bosque"
-parser.add_argument("--treebanks-root", type=str, default=_DEFAULT_TREEBANKS_ROOT)
+parser = ArgumentParser(description="Preprocess the UD treebanks by converting their annotations to the UniMorph \
+                        schema, and then obtaining token-level embeddings.")
+parser.add_argument("treebank", type=str, help="The name of the treebank to be probed. This correspond to the folder \
+                    the treebank is in (e.g., 'UD_Portuguese').")
+parser.add_argument("--treebanks-root", type=str, default=_DEFAULT_TREEBANKS_ROOT, help="Root folder, where the \
+                    treebanks are located. This should not need to change, unless you do not use the default folder \
+                    structure as described in the documentation.")
 parser.add_argument("--dry-run", default=False, action="store_true", help="If enabled, will not actually compute any \
                     embeddings, but go over the dataset and do everything else.")
-parser.add_argument("--bert", default=None)
-parser.add_argument("--fasttext", default=None)
-parser.add_argument("--use-gpu", action="store_true", default=False)
-parser.add_argument("--skip-existing", action="store_true", default=False)
+parser.add_argument("--bert", default=None, help="If enabled, treebanks will be preprocessed for BERT. The name of the \
+                    file corresponds to the (multilingual) bert embedding to use.")
+parser.add_argument("--fasttext", default=None, help="If enabled, treebanks will be preprocessed for fastText. The \
+                    file name corresponds to the fastText embedding file to use.")
+parser.add_argument("--use-gpu", action="store_true", default=False, help="If enabled, uses the GPU to speed up \
+                    preprocessing.")
+parser.add_argument("--skip-existing", action="store_true", default=False, help="If enabled, will skip any embeddings \
+                    that have already been preprocessed.")
 args = parser.parse_args()
 
 if not (args.bert or args.fasttext) or (args.bert and args.fasttext):

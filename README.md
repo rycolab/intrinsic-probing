@@ -44,7 +44,7 @@ You can also run `./scripts/run_ud_all_experiments.sh` to reproduce experimental
 ## Citation
 
 ```
-@inproceedings{hennigen+al.emnlp20,
+@inproceedings{torrobahennigen+al.emnlp20,
   title = {Intrinsic Probing through Dimension Selection},
   author = {Torroba Hennigen, Lucas and 
   Williams, Adina and 
